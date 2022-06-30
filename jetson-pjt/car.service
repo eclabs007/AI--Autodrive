@@ -1,0 +1,12 @@
+[Unit]
+Description="AI CAR APP"
+After=network.target
+
+[Service]
+User=eclabs
+WorkingDirectory="/home/eclabs/AI/CAR/auto-car"
+ExecStart=python3 try.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -2,6 +2,8 @@ import socket
 from threading import Thread
 import time
 car_command_in_progress=False
+car_control=None
+DELAY=0.1
 class udp_cli:
     def __init__(self,ip,port) :
         self.ip=ip
@@ -9,8 +11,9 @@ class udp_cli:
         self.socket=socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
     def send_msg(self,msg):
         self.socket.sendto(str.encode(msg),(self.ip,self.port))
-
-car_control=udp_cli("192.168.4.1",7777)
+def init():
+    global car_control
+    car_control=udp_cli("192.168.4.1",7777)
 prev_cmd=0
 def move_car(command):
     global prev_cmd
@@ -21,7 +24,7 @@ def move_car(command):
     t.start()
 
 def move_car_thread(command):
-    global car_control,car_command_in_progress
+    global car_control,car_command_in_progress,DELAY
     if(car_command_in_progress):
         print("command in progress")
         return

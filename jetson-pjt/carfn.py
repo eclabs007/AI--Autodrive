@@ -2,7 +2,6 @@ import socket
 from threading import Thread
 import time
 car_command_in_progress=False
-car_control=None
 DELAY=0.1
 class udp_cli:
     def __init__(self,ip,port) :
@@ -11,6 +10,8 @@ class udp_cli:
         self.socket=socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
     def send_msg(self,msg):
         self.socket.sendto(str.encode(msg),(self.ip,self.port))
+
+car_control=None
 def init():
     global car_control
     car_control=udp_cli("192.168.4.1",7777)
